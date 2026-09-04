@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CineLog — Моя история фильмов</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="header-content">
+        <div>
+            <h1 class="logo">🎬 CineLog</h1>
+            <p class="tagline">Моя история фильмов</p>
+        </div>
+        <nav class="main-nav">
+            <a href="/" class="nav-link active">Главная</a>
+            <a href="/?status=watched" class="nav-link">Просмотренные</a>
+            <a href="/?status=planned" class="nav-link">В планах</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+    <%- include("partials/flash") %>
+    
+    <section>
+        <h2 class="section-title">
+            <span class="section-icon">➕</span>
+            Добавить фильм
+        </h2>
+
+        <form action="/movies" method="POST" class="movie-form">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="title">Название</label>
+                    <input
+                        id="title"
+                        type="text"
+                        name="title"
+                        value="<%= formData && formData.title ? formData.title : '' %>"
+                        placeholder="Например: Интерстеллар"
+                        required
+                        class="<%= errors && errors.title ? 'error' : '' %>"
+                    >
+                    <% if (errors && errors.title) { %>
+                        <p class="error-message">⚠️ <%= errors.title %></p>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="director">Режиссёр</label>
+                    <input
+                        id="director"
+                        type="text"
+                        name="director"
+                        value="<%= formData && formData.director ? formData.director : '' %>"
+                        placeholder="Например: Кристофер Нолан"
+                        required
+                        class="<%= errors && errors.director ? 'error' : '' %>"
+                    >
+                    <% if (errors && errors.director) { %>
+                        <p class="error-message">⚠️ <%= errors.director %></p>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="year">Год</label>
+                    <input
+                        id="year"
+                        type="number"
+                        name="year"
+                        min="1888"
+                        max="2100"
+                        value="<%= formData && formData.year ? formData.year : '' %>"
+                        placeholder="2024"
+                        required
+                        class="<%= errors && errors.year ? 'error' : '' %>"
+                    >
+                    <% if (errors && errors.year) { %>
+                        <p class="error-message">⚠️ <%= errors.year %></p>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Статус</label>
+                    <select id="status" name="status" class="<%= errors && errors.status ? 'error' : '' %>">
+                        <option value="">Выберите статус</option>
+                        <option value="planned" <%= formData && formData.status === 'planned' ? 'selected' : '' %>>
+                            📋 Хочу посмотреть
+                        </option>
+                        <option value="watching" <%= formData && formData.status === 'watching' ? 'selected' : '' %>>
+                            👀 Смотрю
+                        </option>
+                        <option value="watched" <%= formData && formData.status === 'watched' ? 'selected' : '' %>>
+                            ✅ Просмотрен
+                        </option>
+                        <option value="dropped" <%= formData && formData.status === 'dropped' ? 'selected' : '' %>>
+                            ❌ Брошен
+                        </option>
+                    </select>
+                    <% if (errors && errors.status) { %>
+                        <p class="error-message">⚠️ <%= errors.status %></p>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="rating">Оценка</label>
+                    <input
+                        id="rating"
+                        type="number"
+                        name="rating"
+                        min="0"
+                        max="10"
+                        step="0.5"
+                        value="<%= formData && formData.rating ? formData.rating : '' %>"
+                        placeholder="От 0 до 10"
+                        class="<%= errors && errors.rating ? 'error' : '' %>"
+                    >
+                    <% if (errors && errors.rating) { %>
+                        <p class="error-message">⚠️ <%= errors.rating %></p>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="watchDate">Дата просмотра</label>
+                    <input
+                        id="watchDate"
+                        type="date"
+                        name="watchDate"
+                        value="<%= formData && formData.watchDate ? formData.watchDate : '' %>"
+                        class="<%= errors && errors.watchDate ? 'error' : '' %>"
+                    >
+                    <% if (errors && errors.watchDate) { %>
+                        <p class="error-message">⚠️ <%= errors.watchDate %></p>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="plannedDate">Планируемая дата просмотра</label>
+                    <input
+                        id="plannedDate"
+                        type="date"
+                        name="plannedDate"
+                        value="<%= formData && formData.plannedDate ? formData.plannedDate : '' %>"
+                        class="<%= errors && errors.plannedDate ? 'error' : '' %>"
+                    >
+                    <% if (errors && errors.plannedDate) { %>
+                        <p class="error-message">⚠️ <%= errors.plannedDate %></p>
+                    <% } %>
+                </div>
+
+                <div class="form-group form-group-full">
+                    <label for="description">Описание</label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="4"
+                        placeholder="Краткое описание фильма, ваши впечатления..."
+                        class="<%= errors && errors.description ? 'error' : '' %>"
+                    ><%= formData && formData.description ? formData.description : '' %></textarea>
+                    <% if (errors && errors.description) { %>
+                        <p class="error-message">⚠️ <%= errors.description %></p>
+                    <% } %>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">
+                    ➕ Добавить фильм
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <section>
+        <h2 class="section-title">
+            <span class="section-icon">🎥</span>
+            Мои фильмы
+        </h2>
+
+        <form action="/" method="GET" class="search-form">
+            <div class="search-row">
+                <div class="form-group">
+                    <label for="searchTitle">Название</label>
+                    <input
+                        id="searchTitle"
+                        type="text"
+                        name="title"
+                        value="<%= searchParams && searchParams.title ? searchParams.title : '' %>"
+                        placeholder="Поиск по названию"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="searchDirector">Режиссёр</label>
+                    <input
+                        id="searchDirector"
+                        type="text"
+                        name="director"
+                        value="<%= searchParams && searchParams.director ? searchParams.director : '' %>"
+                        placeholder="Поиск по режиссёру"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="searchYear">Год</label>
+                    <input
+                        id="searchYear"
+                        type="number"
+                        name="year"
+                        min="1888"
+                        max="2100"
+                        value="<%= searchParams && searchParams.year ? searchParams.year : '' %>"
+                        placeholder="2024"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="searchMinRating">Мин. оценка</label>
+                    <input
+                        id="searchMinRating"
+                        type="number"
+                        name="minRating"
+                        min="0"
+                        max="10"
+                        step="0.5"
+                        value="<%= searchParams && searchParams.minRating ? searchParams.minRating : '' %>"
+                        placeholder="7.0"
+                    >
+                </div>
+
+                <div class="search-buttons">
+                    <button type="submit" class="btn-primary">
+                        🔍 Найти
+                    </button>
+                    <a href="/" class="button">
+                        Сбросить
+                    </a>
+                </div>
+            </div>
+        </form>
+
+        <nav>
+            <a href="/" class="<%= !currentStatus ? 'active' : '' %>">
+                Все фильмы
+            </a>
+            <a href="/?status=planned" class="<%= currentStatus === 'planned' ? 'active' : '' %>">
+                📋 Хочу посмотреть
+            </a>
+            <a href="/?status=watching" class="<%= currentStatus === 'watching' ? 'active' : '' %>">
+                👀 Смотрю
+            </a>
+            <a href="/?status=watched" class="<%= currentStatus === 'watched' ? 'active' : '' %>">
+                ✅ Просмотрен
+            </a>
+            <a href="/?status=dropped" class="<%= currentStatus === 'dropped' ? 'active' : '' %>">
+                ❌ Брошен
+            </a>
+        </nav>
+
+        <% if (movies.length === 0) { %>
+            <div class="empty-state">
+                <div class="empty-icon">🎬</div>
+                <p class="empty-text">Фильмов не найдено</p>
+                <p class="empty-description">Попробуйте изменить параметры поиска или добавьте новый фильм</p>
+            </div>
+        <% } else { %>
+            <div class="movies-grid">
+                <% for (const movie of movies) { %>
+                    <article class="movie-card">
+                        <div class="movie-poster">
+                            <% if (movie.poster) { %>
+                                <img
+                                    src="/uploads/<%= movie.poster %>"
+                                    alt="Постер фильма <%= movie.title %>"
+                                >
+                            <% } else { %>
+                                <div class="poster-placeholder">
+                                    🎬
+                                </div>
+                            <% } %>
+                        </div>
+                        
+                        <div class="movie-content">
+                            <h3 class="movie-title">
+                                <a href="/movies/<%= movie.id %>">
+                                    <%= movie.title %>
+                                </a>
+                            </h3>
+                            
+                            <p class="movie-meta">
+                                <%= movie.director %> • <%= movie.year %>
+                            </p>
+                            
+                            <div class="movie-status">
+                                <% 
+                                    const statusLabels = {
+                                        planned: '📋 Хочу посмотреть',
+                                        watching: '👀 Смотрю',
+                                        watched: '✅ Просмотрен',
+                                        dropped: '❌ Брошен'
+                                    };
+                                %>
+                                <span class="status-badge status-<%= movie.status %>">
+                                    <%= statusLabels[movie.status] || movie.status %>
+                                </span>
+                            </div>
+                            
+                            <% if (movie.rating > 0) { %>
+                                <div class="rating">
+                                    <div class="stars">
+                                        <% for (let i = 1; i <= 5; i++) { %>
+                                            <span class="star <%= i <= Math.round(movie.rating / 2) ? 'filled' : '' %>">
+                                                ★
+                                            </span>
+                                        <% } %>
+                                    </div>
+                                    <span class="rating-value">
+                                        <%= movie.rating %>/10
+                                    </span>
+                                </div>
+                            <% } %>
+                        </div>
+                    </article>
+                <% } %>
+            </div>
+        <% } %>
+    </section>
+
+</main>
+
+</body>
+</html>

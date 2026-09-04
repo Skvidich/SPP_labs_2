@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>500 — CineLog</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="header-content">
+        <div>
+            <h1 class="logo">🎬 CineLog</h1>
+            <p class="tagline">Моя история фильмов</p>
+        </div>
+        <nav class="main-nav">
+            <a href="/" class="nav-link">Главная</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+    <section class="error-page">
+
+        <div class="error-icon">⚠️</div>
+
+        <h2>500</h2>
+
+        <p class="error-title">
+            Внутренняя ошибка сервера
+        </p>
+
+        <% if (typeof message !== 'undefined' && message) { %>
+            <p class="error-description">
+                <%= message %>
+            </p>
+        <% } %>
+
+        <p class="error-description">
+            Что-то пошло не так. Пожалуйста, попробуйте позже.
+        </p>
+
+        <p class="error-actions">
+            <a href="/" class="button">
+                ← Вернуться на главную
+            </a>
+        </p>
+
+    </section>
+
+</main>
+
+</body>
+</html>

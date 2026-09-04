@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Редактировать — <%= movie.title %> — CineLog</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="header-content">
+        <div>
+            <h1 class="logo">🎬 CineLog</h1>
+            <p class="tagline">Моя история фильмов</p>
+        </div>
+        <nav class="main-nav">
+            <a href="/" class="nav-link">Главная</a>
+            <a href="/movies/<%= movie.id %>" class="nav-link">Просмотр</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+    <%- include("../partials/flash") %>
+
+    <section>
+        <h2 class="section-title">
+            <span class="section-icon">✏️</span>
+            Редактировать: <%= movie.title %>
+        </h2>
+
+        <% if (errors && Object.keys(errors).length > 0) { %>
+            <div class="flash flash-error">
+                <div class="flash-icon">⚠️</div>
+                <div class="flash-content">
+                    <p>Пожалуйста, исправьте ошибки в форме</p>
+                </div>
+            </div>
+        <% } %>
+
+        <form action="/movies/<%= movie.id %>" method="POST" class="movie-form">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="title">Название</label>
+                    <input
+                        id="title"
+                        type="text"
+                        name="title"
+                        value="<%= movie.title %>"
+                        placeholder="Например: Интерстеллар"
+                        required
+                        class="<%= errors && errors.title ? 'error' : '' %>"
+                    >
+                    <% if (errors && errors.title) { %>
+                        <p class="error-message">⚠️ <%= errors.title %></p>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="director">Режиссёр</label>
+                    <input
+                        id="director"
+                        type="text"
+                        name="director"
+                        value="<%= movie.director %>"
+                        placeholder="Например: Кристофер Нолан"
+                        required
+                        class="<%= errors && errors.director ? 'error' : '' %>"
+                    >
+                    <% if (errors && errors.director) { %>
+                        <p class="error-message">⚠️ <%= errors.director %></p>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="year">Год</label>
+                    <input
+                        id="year"
+                        type="number"
+                        name="year"
+                        min="1888"
+                        max="2100"
+                        value="<%= movie.year %>"
+                        placeholder="2024"
+                        required
+                        class="<%= errors && errors.year ? 'error' : '' %>"
+                    >
+                    <% if (errors && errors.year) { %>
+                        <p class="error-message">⚠️ <%= errors.year %></p>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Статус</label>
+                    <select id="status" name="status" class="<%= errors && errors.status ? 'error' : '' %>">
+                        <option value="">Выберите статус</option>
+                        <option value="planned" <%= movie.status === 'planned' ? 'selected' : '' %>>
+                            📋 Хочу посмотреть
+                        </option>
+                        <option value="watching" <%= movie.status === 'watching' ? 'selected' : '' %>>
+                            👀 Смотрю
+                        </option>
+                        <option value="watched" <%= movie.status === 'watched' ? 'selected' : '' %>>
+                            ✅ Просмотрен
+                        </option>
+                        <option value="dropped" <%= movie.status === 'dropped' ? 'selected' : '' %>>
+                            ❌ Брошен
+                        </option>
+                    </select>
+                    <% if (errors && errors.status) { %>
+                        <p class="error-message">⚠️ <%= errors.status %></p>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="rating">Оценка</label>
+                    <input
+                        id="rating"
+                        type="number"
+                        name="rating"
+                        min="0"
+                        max="10"
+                        step="0.5"
+                        value="<%= movie.rating %>"
+                        placeholder="От 0 до 10"
+                        class="<%= errors && errors.rating ? 'error' : '' %>"
+                    >
+                    <% if (errors && errors.rating) { %>
+                        <p class="error-message">⚠️ <%= errors.rating %></p>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="watchDate">Дата просмотра</label>
+                    <input
+                        id="watchDate"
+                        type="date"
+                        name="watchDate"
+                        value="<%= movie.watchDate || '' %>"
+                        class="<%= errors && errors.watchDate ? 'error' : '' %>"
+                    >
+                    <% if (errors && errors.watchDate) { %>
+                        <p class="error-message">⚠️ <%= errors.watchDate %></p>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="plannedDate">Планируемая дата просмотра</label>
+                    <input
+                        id="plannedDate"
+                        type="date"
+                        name="plannedDate"
+                        value="<%= movie.plannedDate || '' %>"
+                        class="<%= errors && errors.plannedDate ? 'error' : '' %>"
+                    >
+                    <% if (errors && errors.plannedDate) { %>
+                        <p class="error-message">⚠️ <%= errors.plannedDate %></p>
+                    <% } %>
+                </div>
+
+                <div class="form-group form-group-full">
+                    <label for="description">Описание</label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="5"
+                        placeholder="Краткое описание фильма, ваши впечатления..."
+                        class="<%= errors && errors.description ? 'error' : '' %>"
+                    ><%= movie.description %></textarea>
+                    <% if (errors && errors.description) { %>
+                        <p class="error-message">⚠️ <%= errors.description %></p>
+                    <% } %>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">
+                    💾 Сохранить изменения
+                </button>
+
+                <a href="/movies/<%= movie.id %>" class="button">
+                    Отмена
+                </a>
+            </div>
+        </form>
+    </section>
+
+    <% if (movie.poster) { %>
+        <section class="poster-preview-section">
+            <h2 class="section-title">
+                <span class="section-icon">🖼️</span>
+                Текущий постер
+            </h2>
+            
+            <div class="poster-preview">
+                <img
+                    src="/uploads/<%= movie.poster %>"
+                    alt="Текущий постер фильма <%= movie.title %>"
+                    style="max-width: 200px;"
+                >
+                <p class="poster-note">
+                    Постер можно заменить на странице просмотра фильма
+                </p>
+            </div>
+        </section>
+    <% } %>
+
+</main>
+
+</body>
+</html>

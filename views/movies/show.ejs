@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title><%= movie.title %> — CineLog</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="header-content">
+        <div>
+            <h1 class="logo">🎬 CineLog</h1>
+            <p class="tagline">Моя история фильмов</p>
+        </div>
+        <nav class="main-nav">
+            <a href="/" class="nav-link">Главная</a>
+            <a href="/movies/<%= movie.id %>/edit" class="nav-link">Редактировать</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+    <%- include("../partials/flash") %>
+
+    <div class="movie-detail">
+        <div class="movie-detail-poster">
+            <% if (movie.poster) { %>
+                <img
+                    src="/uploads/<%= movie.poster %>"
+                    alt="Постер фильма <%= movie.title %>"
+                >
+            <% } else { %>
+                <div class="poster-placeholder-large">
+                    🎬
+                </div>
+            <% } %>
+        </div>
+
+        <div class="movie-detail-info">
+            <h2 class="movie-detail-title">
+                <%= movie.title %>
+                <span class="year-badge"><%= movie.year %></span>
+            </h2>
+
+            <div class="detail-row">
+                <span class="detail-label">Режиссёр:</span>
+                <span class="detail-value"><%= movie.director %></span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">Статус:</span>
+                <% 
+                    const statusLabels = {
+                        planned: '📋 Хочу посмотреть',
+                        watching: '👀 Смотрю',
+                        watched: '✅ Просмотрен',
+                        dropped: '❌ Брошен'
+                    };
+                %>
+                <span class="status-badge status-<%= movie.status %>">
+                    <%= statusLabels[movie.status] || movie.status %>
+                </span>
+            </div>
+
+            <% if (movie.rating > 0) { %>
+                <div class="detail-row">
+                    <span class="detail-label">Оценка:</span>
+                    <div class="rating-large">
+                        <div class="stars">
+                            <% for (let i = 1; i <= 5; i++) { %>
+                                <span class="star <%= i <= Math.round(movie.rating / 2) ? 'filled' : '' %>">
+                                    ★
+                                </span>
+                            <% } %>
+                        </div>
+                        <span class="rating-value-large">
+                            <%= movie.rating %>/10
+                        </span>
+                    </div>
+                </div>
+            <% } %>
+
+            <% if (movie.watchDate) { %>
+                <div class="detail-row">
+                    <span class="detail-label">📅 Просмотрен:</span>
+                    <span class="detail-value"><%= movie.watchDate %></span>
+                </div>
+            <% } %>
+
+            <% if (movie.plannedDate) { %>
+                <div class="detail-row">
+                    <span class="detail-label">🗓️ Запланирован:</span>
+                    <span class="detail-value"><%= movie.plannedDate %></span>
+                </div>
+            <% } %>
+
+            <% if (movie.description) { %>
+                <div class="description-block">
+                    <h3 class="description-title">📝 Описание</h3>
+                    <p class="description-text"><%= movie.description %></p>
+                </div>
+            <% } %>
+
+            <div class="detail-actions">
+                <a href="/movies/<%= movie.id %>/edit" class="button btn-primary">
+                    ✏️ Редактировать
+                </a>
+
+                <form
+                    action="/movies/<%= movie.id %>/delete"
+                    method="POST"
+                    style="display: inline;"
+                    onsubmit="return confirm('Удалить фильм?');"
+                >
+                    <button type="submit" class="button btn-danger">
+                        🗑️ Удалить
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <section class="poster-section">
+        <h2 class="section-title">
+            <span class="section-icon">🖼️</span>
+            Постер
+        </h2>
+
+        <% if (movie.poster) { %>
+            <div class="current-poster">
+                <img
+                    src="/uploads/<%= movie.poster %>"
+                    alt="Постер фильма <%= movie.title %>"
+                    style="max-width: 300px;"
+                >
+
+                <form
+                    action="/movies/<%= movie.id %>/poster/delete"
+                    method="POST"
+                    style="display: inline;"
+                    onsubmit="return confirm('Удалить постер?');"
+                >
+                    <button type="submit" class="button btn-danger">
+                        🗑️ Удалить постер
+                    </button>
+                </form>
+            </div>
+        <% } else { %>
+            <div class="empty-poster">
+                <p>Постер не загружен</p>
+            </div>
+        <% } %>
+
+        <form
+            action="/movies/<%= movie.id %>/poster"
+            method="POST"
+            enctype="multipart/form-data"
+            class="upload-form"
+        >
+            <div class="form-group">
+                <label for="poster">
+                    <% if (movie.poster) { %>
+                        🔄 Заменить постер
+                    <% } else { %>
+                        📤 Загрузить постер
+                    <% } %>
+                </label>
+
+                <input
+                    id="poster"
+                    type="file"
+                    name="poster"
+                    accept="image/*"
+                    required
+                >
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">
+                    <% if (movie.poster) { %>
+                        🔄 Заменить
+                    <% } else { %>
+                        📤 Загрузить
+                    <% } %>
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <p class="back-link">
+        <a href="/">
+            ← Вернуться к списку
+        </a>
+    </p>
+
+</main>
+
+</body>
+</html>

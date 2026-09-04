@@ -1,0 +1,21 @@
+<% if (success && success.length > 0) { %>
+    <div class="flash flash-success">
+        <div class="flash-icon">✅</div>
+        <div class="flash-content">
+            <% for (const message of success) { %>
+                <p><%= message %></p>
+            <% } %>
+        </div>
+    </div>
+<% } %>
+
+<% if (error && error.length > 0) { %>
+    <div class="flash flash-error">
+        <div class="flash-icon">⚠️</div>
+        <div class="flash-content">
+            <% for (const message of error) { %>
+                <p><%= message %></p>
+            <% } %>
+        </div>
+    </div>
+<% } %>
