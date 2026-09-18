@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Movie Lists</title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="container header-content">
+      <h1>Movie Lists</h1>
+      <p>Упрощённый Letterboxd</p>
+    </div>
+  </header>
+
+
+  <main class="container">
+
+    <!-- Общее сообщение -->
+    <section
+      id="message"
+      class="message hidden"
+      role="status"
+      aria-live="polite"
+    ></section>
+
+
+    <!-- Фильмы -->
+    <section class="section">
+
+      <div class="section-header">
+        <div>
+          <h2>Фильмы</h2>
+
+          <p class="section-description">
+            Управление фильмами и их постерами
+          </p>
+        </div>
+
+        <button
+          id="show-movie-form-button"
+          type="button"
+        >
+          + Добавить фильм
+        </button>
+      </div>
+
+
+      <!-- Форма создания фильма -->
+      <form
+        id="movie-form"
+        class="form hidden"
+      >
+        <h3>Новый фильм</h3>
+
+        <label>
+          Название
+
+          <input
+            type="text"
+            id="movie-title"
+            maxlength="200"
+            required
+          >
+        </label>
+
+
+        <label>
+          Режиссёр
+
+          <input
+            type="text"
+            id="movie-director"
+            maxlength="200"
+            required
+          >
+        </label>
+
+
+        <label>
+          Год
+
+          <input
+            type="number"
+            id="movie-year"
+            min="1888"
+            step="1"
+            required
+          >
+        </label>
+
+
+        <div class="form-buttons">
+
+          <button type="submit">
+            Создать фильм
+          </button>
+
+          <button
+            type="button"
+            id="cancel-movie-form-button"
+            class="secondary"
+          >
+            Отмена
+          </button>
+
+        </div>
+      </form>
+
+
+      <!-- Список фильмов -->
+      <div
+        id="movies-list"
+        class="cards"
+      ></div>
+
+    </section>
+
+
+    <!-- Списки -->
+    <section class="section">
+
+      <div class="section-header">
+        <div>
+          <h2>Списки фильмов</h2>
+
+          <p class="section-description">
+            Коллекции фильмов
+          </p>
+        </div>
+
+        <button
+          id="show-list-form-button"
+          type="button"
+        >
+          + Добавить список
+        </button>
+      </div>
+
+
+      <!-- Форма создания списка -->
+      <form
+        id="list-form"
+        class="form hidden"
+      >
+        <h3>Новый список</h3>
+
+        <label>
+          Название
+
+          <input
+            type="text"
+            id="list-name"
+            maxlength="200"
+            required
+          >
+        </label>
+
+
+        <label>
+          Описание
+
+          <textarea
+            id="list-description"
+            maxlength="2000"
+            rows="4"
+          ></textarea>
+        </label>
+
+
+        <div class="form-buttons">
+
+          <button type="submit">
+            Создать список
+          </button>
+
+          <button
+            type="button"
+            id="cancel-list-form-button"
+            class="secondary"
+          >
+            Отмена
+          </button>
+
+        </div>
+      </form>
+
+
+      <!-- Список списков -->
+      <div
+        id="lists-list"
+        class="cards"
+      ></div>
+
+    </section>
+
+  </main>
+
+
+  <!-- Главный модуль приложения -->
+  <script
+    type="module"
+    src="js/app.js"
+  ></script>
+
+</body>
+</html>
+
