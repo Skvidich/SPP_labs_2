@@ -1,0 +1,390 @@
+:root {
+  --bg-main: #14181c;
+  --bg-card: #1d232a;
+  --bg-hover: #242c34;
+  --bg-modal: #181e25;
+  --text-main: #e1e8ed;
+  --text-muted: #9ab;
+  --text-dim: #678;
+  --accent-green: #00e054;
+  --accent-green-hover: #00b341;
+  --accent-blue: #40bcf4;
+  --accent-orange: #ff8000;
+  --danger-red: #ff4a4a;
+  --border-color: #2c3440;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-main: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* Контейнеры */
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Шапка */
+.header {
+  background: rgba(20, 24, 28, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 16px 0;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-logo span {
+  color: var(--accent-green);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.user-badge {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.user-badge strong {
+  color: #fff;
+}
+
+.role-tag {
+  background: var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  letter-spacing: 0.5px;
+}
+
+/* Кнопки */
+button {
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--accent-green);
+  color: #000;
+}
+
+button:hover {
+  background: var(--accent-green-hover);
+  transform: translateY(-1px);
+}
+
+button.secondary {
+  background: var(--border-color);
+  color: var(--text-main);
+}
+
+button.secondary:hover {
+  background: #394352;
+}
+
+button.danger {
+  background: rgba(255, 74, 74, 0.15);
+  color: var(--danger-red);
+  border: 1px solid rgba(255, 74, 74, 0.3);
+}
+
+button.danger:hover {
+  background: var(--danger-red);
+  color: #fff;
+}
+
+/* Секции */
+main.container {
+  padding: 32px 20px;
+}
+
+.section {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin-bottom: 36px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-main);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section-header h2 {
+  font-size: 1.5rem;
+  color: #fff;
+  font-weight: 700;
+}
+
+.section-description {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+/* Формы */
+.form {
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin-bottom: 24px;
+  display: grid;
+  gap: 16px;
+}
+
+.form h3 {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.form label {
+  display: grid;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.form input,
+.form textarea,
+.form select {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form input:focus,
+.form textarea:focus,
+.form select:focus {
+  border-color: var(--accent-green);
+}
+
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* Сетка карточек */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, border-color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: #455265;
+}
+
+.card.editing {
+  grid-column: 1 / -1;
+  background: var(--bg-main);
+}
+
+.poster-wrapper {
+  aspect-ratio: 2 / 3;
+  width: 100%;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: #0d1013;
+  margin-bottom: 12px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.poster-placeholder {
+  color: var(--text-dim);
+  font-size: 2.5rem;
+}
+
+.card h3 {
+  color: #fff;
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card p {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+}
+
+.card-actions {
+  margin-top: auto;
+  padding-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Всегда ровно 2 колонки */
+  gap: 8px;
+}
+
+.card-actions button {
+  width: 100%;
+  white-space: nowrap; /* Запрещает перенос "+ Фильм" на новую строку */
+  font-size: 0.8rem;
+  padding: 8px 6px;
+}
+
+/* Фильмы внутри коллекций */
+.list-movies {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-color);
+}
+
+.list-movies ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.list-movies li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-card);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  color: var(--text-main);
+}
+
+.list-movies button {
+  padding: 3px 8px;
+  font-size: 0.72rem;
+}
+
+/* Сообщения и статусы */
+.message {
+  padding: 12px 18px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 24px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.message.error {
+  background: rgba(255, 74, 74, 0.15);
+  color: #ff7070;
+  border: 1px solid rgba(255, 74, 74, 0.3);
+}
+
+.message.success {
+  background: rgba(0, 224, 84, 0.15);
+  color: var(--accent-green);
+  border: 1px solid rgba(0, 224, 84, 0.3);
+}
+
+.empty {
+  color: var(--text-dim);
+  text-align: center;
+  padding: 30px 0;
+  grid-column: 1 / -1;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 650px) {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .cards {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
