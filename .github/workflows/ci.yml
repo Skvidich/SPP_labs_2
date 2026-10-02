@@ -42,8 +42,8 @@ jobs:
       - name: Build Backend Docker Image
         uses: docker/build-push-action@v5
         with:
-          context: lab3/backend
-          file: lab3/backend/Dockerfile
+          context: lab3                  
+          file: lab3/backend/Dockerfile   
           push: false
 
   build-frontend:
@@ -59,6 +59,6 @@ jobs:
       - name: Build Frontend Docker Image
         uses: docker/build-push-action@v5
         with:
-          context: lab3/frontend
+          context: lab3/frontend          
           file: lab3/frontend/Dockerfile.dev
           push: false
