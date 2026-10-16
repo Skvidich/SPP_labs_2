@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coin Rush</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div id="login-screen" class="screen">
+    <form id="login-form" class="card login-card">
+      <h1>Coin Rush 🪙</h1>
+      <p class="muted">Введите имя, чтобы войти в общую комнату</p>
+      <input id="login-username" type="text" placeholder="Ваше имя"
+             maxlength="50" autocomplete="off" required />
+      <div id="login-error" class="error"></div>
+      <button type="submit">Войти</button>
+    </form>
+  </div>
+
+  <div id="game-screen" class="screen" hidden>
+    <header>
+      <div class="header-left">
+        <h2>Coin Rush</h2>
+        <span id="conn-status" class="conn offline">🔴 Отключено</span>
+      </div>
+      <div class="header-right">
+        <span id="my-name" class="muted"></span>
+        <button id="btn-bot" class="secondary">🤖 Бот: выкл</button>
+        <button id="btn-logout" class="danger">Выйти</button>
+      </div>
+    </header>
+
+    <main>
+      <div id="field-wrap">
+        <div id="field" class="field">
+          <div id="field-overlay" class="overlay"></div>
+        </div>
+      </div>
+
+      <aside class="sidebar">
+        <div class="card compact">
+          <div id="round-info"></div>
+        </div>
+        <div class="card compact">
+          <h3>Очки раунда</h3>
+          <ul id="scoreboard" class="scoreboard"></ul>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>
