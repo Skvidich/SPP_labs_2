@@ -1,0 +1,25 @@
+{
+  "name": "music-gateway",
+  "version": "1.0.0",
+  "description": "Apollo Gateway: единая точка входа GraphQL для Catalog и Collections Subgraph",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "@apollo/gateway": "2.14.0",
+    "@apollo/server": "4.11.0",
+    "@opentelemetry/api": "1.10.0",
+    "@opentelemetry/exporter-trace-otlp-http": "0.301.2",
+    "@opentelemetry/resources": "3.1.1",
+    "@opentelemetry/sdk-node": "0.301.2",
+    "@opentelemetry/semantic-conventions": "1.45.0",
+    "dotenv": "18.0.10",
+    "graphql": "16.9.0",
+    "prom-client": "15.1.3"
+  }
+}
